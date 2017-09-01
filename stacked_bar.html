@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="stacked_bar.js"></script>
+  <link rel="stylesheet" href="stacked_bar.css"></link>
+</head>
+
+<body ng-app="APP" ng-controller="StackedBar">
+
+  <div class="stacked-bar-graph">
+
+    <span ng-repeat="seg in segments" style="width:{{percentage(seg.length)+'%'}}; background:{{seg.color}}">{{seg.speaker+' '+seg.start+' '+seg.length}}</span>
+
+  </div>
+
+
+
+</body>
+
+
+</html>
