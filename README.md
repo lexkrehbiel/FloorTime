@@ -2,4 +2,8 @@
 
 ## Prototype of UI
 
-Make sure you have an upload directory in the location pointed to by $target_dir in piechart.php!
+To run the node server:
+  # write a new config/<name>.json file to point to an upload directory
+  # in command line, type "export NODE_ENV=<name>"
+  # run "npm install"
+  # run "node FloorTime.js"

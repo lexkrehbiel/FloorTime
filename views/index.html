@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"></link>
+    <!-- JQuery JS -->
+    <script src="./node_modules/jquery/dist/jquery.min.js" ></script>
+    <!-- Bootstrap JS -->
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js" ></script>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+    <h1>Floor Time</h1>
+
+    <!-- On submit, redirects to upload -->
+    <form action="upload" method="post" enctype="multipart/form-data">
+        <h5>Select an audio file to upload:</h5>
+        <h7><input type="file" name="filetoupload"></h7>
+        <input style="margin-top:10px" class="btn btn-primary" type="submit" value="Upload File" name="filetoupload">
+    </form>
+
+    </div>
+
+  </body>
+</html>

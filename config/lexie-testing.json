@@ -1,0 +1,8 @@
+{
+  "Uploads": {
+    "path": "/Users/lexiekrehbiel/Documents/SrProject/FloorTime/data/"
+  },
+  "drivers": {
+    "/upload" : "upload/CompleteUpload.js"
+  }
+}

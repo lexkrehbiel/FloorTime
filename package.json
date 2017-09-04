@@ -1,0 +1,26 @@
+{
+  "name": "FloorTime",
+  "version": "0.0.0",
+  "description": "A Speaker Diarization Application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node FloorTime.js"
+  },
+  "dependencies": {
+    "bluebird" : "^3.5.0",
+    "formidable" : "^1.1.1",
+    "config" : "^1.26.2",
+    "jquery" : "^3.2.1",
+    "bootstrap" : "^3.3.7",
+    "google-charts" : "^0.5.1"
+  },
+  "engines": {
+    "node": "4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lexkrehbiel/FloorTime"
+  },
+  "author": "Lexie Krehbiel, Spencer Hartwick",
+  "license": "UNLICENSED"
+}

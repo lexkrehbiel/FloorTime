@@ -1,0 +1,6 @@
+# Data #
+*.wav
+*.seg
+node_modules
+data/*
+.DS_Store
