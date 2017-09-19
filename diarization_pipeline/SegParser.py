@@ -3,35 +3,46 @@
 
 import json
 
-# store the segment data
-segments = []
+def translateSegToJSON(tag):
+    infile = '../data/seg/'+tag+'.seg'
+    outfile = '../data/json/'+tag+'.json'
 
-# store the metadata
-meta = []
+    print(infile)
+    print(outfile)
 
-# store the name of each index
-segmentKeyNames = ['showName','channelNumber','start','length','gender','band','environment','speaker']
-metaKeyNames = ['speaker','FSScore','FTScore','MSScore','MTScore']
+    # store the segment data
+    segments = []
 
-f=open('diar.seg')
-for row in f:
-    # row = raw_input()
-    cols = row.split()
-    if cols[0] == ';;' :
-        # strip the non-meaningful columns
-        cols = [col for col in cols if (col not in [';;','cluster','[',']','='] and 'score' not in col)]
-        # convert the array to key-value pairs
-        dict_obj = dict(zip(metaKeyNames,cols))
-        meta.append(dict_obj)
-    else :
-        # convert the array to key-value pairs
-        dict_obj = dict(zip(segmentKeyNames,cols))
-        segments.append(dict_obj)
+    # store the metadata
+    meta = []
 
-# combine the data components into a single object
-data = {'segments': segments, 'meta':meta};
+    # store the name of each index
+    segmentKeyNames = ['showName','channelNumber','start','length','gender','band','environment','speaker']
+    metaKeyNames = ['speaker','FSScore','FTScore','MSScore','MTScore']
 
-# JSONify
-JSON = json.dumps(data);
+    f= open(infile)
 
-print(JSON)
+    for row in f:
+        # row = raw_input()
+        cols = row.split()
+        if cols[0] == ';;' :
+            # strip the non-meaningful columns
+            cols = [col for col in cols if (col not in [';;','cluster','[',']','='] and 'score' not in col)]
+            # convert the array to key-value pairs
+            dict_obj = dict(zip(metaKeyNames,cols))
+            meta.append(dict_obj)
+        else :
+            # convert the array to key-value pairs
+            dict_obj = dict(zip(segmentKeyNames,cols))
+            segments.append(dict_obj)
+
+    # combine the data components into a single object
+    data = {'segments': segments, 'meta':meta}
+
+    # JSONify
+    JSON = json.dumps(data);
+
+    # write to file
+    f = open(outfile,'w')
+    f.write(JSON)
+    f.close()
