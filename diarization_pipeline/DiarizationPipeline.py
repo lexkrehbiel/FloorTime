@@ -1,12 +1,14 @@
+# This script runs the diarization pipeline from an audio file to JSON output
+# input: name, extension of audio file to be diarized
+
 import WavConverter
 import SegParser
 import Diarizer
 import sys
 
+# strip the arguments
 tag = sys.argv[1];
 filetype = sys.argv[2];
-
-# run the pipeline!
 
 # put the file in the correct format
 WavConverter.translateAudioToWav(tag,filetype)

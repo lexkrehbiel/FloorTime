@@ -64,6 +64,20 @@ http.createServer(function (req, res) {
       }
     });
   }
+
+  // if there's a corresponding js file to drive this url
+  // (mapping given by the urls component in config)
+  else if(req.url in drivers){
+
+    console.log('found drivers');
+
+    // load the driver
+    var driver = require('./'+drivers[req.url]);
+
+    // finish by running the driver
+    res.end( driver.run(req,res) );
+  }
+
   // try the raw upload
   else if(fs.existsSync('.'+req.url)){
 

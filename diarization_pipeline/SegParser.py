@@ -1,11 +1,16 @@
 # this module is intended to take in a .seg file and output a .json file,
 # converting the .seg information into a json object, with fields indexed by key
+# input: tag name for both the .seg and the .json files
 
 import json
+import os
 
+# convert seg file to JSON
 def translateSegToJSON(tag):
-    infile = '../data/seg/'+tag+'.seg'
-    outfile = '../data/json/'+tag+'.json'
+
+    dir = os.path.dirname(__file__)
+    infile = os.path.join(dir, '../data/seg/'+tag+'.seg')
+    outfile = os.path.join(dir, '../data/json/'+tag+'.json')
 
     print(infile)
     print(outfile)
