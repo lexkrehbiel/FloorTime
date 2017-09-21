@@ -1,46 +1,28 @@
-/*This moudle performs the upload and redirects to the charts page*/
+/*
+  This module runs the diarization pipeline on the given fileName
+  When this script finishes, data/json/<fileName-extension>.json will be ready
+  to source charts with data
+*/
 
-// node imports
-// var PythonShell = require('python-shell');
 var shell = require('shelljs');
 
 exports.run = function(fileName) {
 
-  // generate the promise version of the upload function
+  // promise to diarize
   return new Promise(function(resolve,reject){
 
       console.log('running diarization');
+
+      // separate the file into it's name and extension
       periodIndex = fileName.lastIndexOf('.');
       tag = fileName.substring(0,periodIndex);
       type = fileName.substring(periodIndex+1,fileName.length);
 
-      // do diarize
-      var options = {
-        mode: 'text',
-        scriptPath: __dirname+'/',
-        pythonOptions: ['-u'],
-        args: [tag, type]
-      };
-
-      // PythonShell.run('DiarizationPipeline.py', options, function (err, results) {
-      //   if (err) {
-      //     console.log(' error in diarization');
-      //     reject(err);
-      //   }
-      //   // results is an array consisting of messages collected during execution
-      //   else {
-      //     console.log(' finished diarization');
-      //     resolve(tag+'.json');
-      //   }
-      // });
-
+      // transfer control to the command line, calling the python script for diarization
       shell.exec('python '+__dirname+ '/DiarizationPipeline.py '+tag+' '+' type', function(err,results){
-        if (err) {
-          console.log(' error in diarization');
-          console.log(err);
-          reject(err);
-        }
-        // results is an array consisting of messages collected during execution
+        if (err) reject(err);
+
+        // return the name of the file generated
         else {
           console.log(' finished diarization');
           resolve(tag+'.json');

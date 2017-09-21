@@ -4,19 +4,14 @@
   "description": "A Speaker Diarization Application",
   "main": "index.js",
   "scripts": {
-    "start": "node FloorTime.js"
+    "start": "node index.js"
   },
   "dependencies": {
+    "express": "^4.15.4",
+    "shelljs": "^0.7.8",
     "bluebird" : "^3.5.0",
     "formidable" : "^1.1.1",
-    "config" : "^1.26.2",
-    "jquery" : "^3.2.1",
-    "bootstrap" : "^3.3.7",
-    "google-charts" : "^0.5.1",
-    "python-shell" : "^0.4.0",
-    "express": "^4.15.4",
-    "consolidate": "^0.14.5",
-    "mustache":"^2.3.0"
+    "ejs": "^2.5.7"
   },
   "engines": {
     "node": "4.0.0"

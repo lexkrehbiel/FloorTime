@@ -1,4 +1,4 @@
-/*This moudle performs the upload and redirects to the charts page*/
+/*This moudle performs the upload, returning the name of the file uploaded*/
 
 // node imports
 var formidable = require('formidable');
@@ -6,6 +6,7 @@ var fs = require('fs');
 
 exports.run = function(req,res){
 
+  // promise to perform the upload
   return new Promise(function(resolve,reject){
 
     console.log('running upload');
@@ -19,8 +20,12 @@ exports.run = function(req,res){
       // get the old path (the temp path)
       var oldpath = files.filetoupload.path;
 
+      // strip the last directory off
+      var lastDirIndex = __dirname.lastIndexOf('/');
+      var parent = __dirname.substring(0,lastDirIndex);
+
       // determine the directory
-      var directory = '/Users/lexiekrehbiel/Documents/SrProject/FloorTime/data/audio/';
+      var directory = parent+'/data/audio/';
 
       // generate the new path
       var newFileName = files.filetoupload.name;
@@ -33,6 +38,8 @@ exports.run = function(req,res){
         // resolve the promise
         else {
           console.log('   finished upload');
+
+          // return the new file's name
           resolve(newFileName);
         }
       });

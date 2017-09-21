@@ -1,9 +1,0 @@
-{
-  "Uploads": {
-    "path": "/Users/lexiekrehbiel/Documents/SrProject/FloorTime/data/audio"
-  },
-  "drivers": {
-    "/upload" : "upload/CompleteUpload.js",
-    "/runPipeline" : "diarization_pipeline/RunDiarization.js"
-  }
-}
