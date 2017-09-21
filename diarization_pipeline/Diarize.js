@@ -18,14 +18,16 @@ exports.run = function(fileName) {
       tag = fileName.substring(0,periodIndex);
       type = fileName.substring(periodIndex+1,fileName.length);
 
+      console.log('python '+__dirname+ '/DiarizationPipeline.py '+tag+' '+type);
+
       // transfer control to the command line, calling the python script for diarization
-      shell.exec('python '+__dirname+ '/DiarizationPipeline.py '+tag+' '+' type', function(err,results){
+      shell.exec('python '+__dirname+ '/DiarizationPipeline.py '+tag+' '+type, function(err,results){
         if (err) reject(err);
 
         // return the name of the file generated
         else {
           console.log(' finished diarization');
-          resolve(tag+'.json');
+          resolve(tag);
         }
       })
   });

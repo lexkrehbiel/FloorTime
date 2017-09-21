@@ -8,7 +8,7 @@ import sys
 
 # strip the arguments
 tag = sys.argv[1];
-filetype = sys.argv[2];
+filetype = sys.argv[2].lower();
 
 # put the file in the correct format
 WavConverter.translateAudioToWav(tag,filetype)
