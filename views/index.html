@@ -8,6 +8,8 @@
     <script src="../static/vendors/jquery.min.js" ></script>
     <!-- Bootstrap JS -->
     <script src="../static/vendors/bootstrap.min.js" ></script>
+    <!-- Loader css -->
+    <link rel="stylesheet" type="text/css" href="../static/css/loader.css" ></link>
   </head>
 
   <body>
@@ -16,13 +18,39 @@
 
     <h1>Floor Time</h1>
 
+    <script type="text/javascript" >
+      window.onload = function () {
+
+        // react to clicks in the button span by changing the experience to show loading
+        document.getElementById("btnSpn").onclick = function() {
+
+          // show the loader
+          document.getElementById("loader").style.display = "inline-block";
+
+          // change the button to say running
+          $("#uploadBtn").prop("value", "Running...");
+
+          // delay so that the upload script is not prevented from loading
+          setTimeout(function(){
+
+            // disable button
+            $("#uploadBtn").prop("disabled", "true");
+          }, 10);
+        };
+      }
+    </script>
+
     <!-- On submit, redirects to upload -->
     <form action="upload" method="post" enctype="multipart/form-data">
         <h5>Select an audio file to upload:</h5>
         <h7><input type="file" name="filetoupload"></h7>
-        <input style="margin-top:10px" class="btn btn-primary" type="submit" value="Upload File" name="filetoupload">
+        <div class="row">
+          <span class="col-md-4" id="btnSpn">
+            <input id="uploadBtn" style="margin-top:10px" class="btn btn-primary" type="submit" value="Upload File" name="filetoupload">
+          </span>
+          <span class="col-md-4"><div id = "loader" class="loader" ></div></span>
+        </div>
     </form>
-
     </div>
 
   </body>

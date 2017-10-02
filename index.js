@@ -36,9 +36,13 @@ router.get("/",function(req,res){
 // use the router specified
 app.use("/", router);
 
+app.get('*', function(req, res) {
+  // handle miscellaneous requests
+});
+
 // run server on port 8080
 app.listen(8080,function(){
-  console.log("LIVE ON 8080")
+  console.log("LIVE ON 8080");
 });
 
 // upload the specified file
