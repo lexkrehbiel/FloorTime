@@ -1,9 +1,15 @@
 # FloorTime
-
-## Prototype of UI
-
 To run the node server:
-  # write a new config/<name>.json file to point to an upload directory
-  # in command line, type "export NODE_ENV=<name>"
-  # run "npm install"
-  # run "node FloorTime.js"
+- clone the repo
+- run "npm install"
+- make the following directories in your file system:
+```
+project
+└───data
+      └───audio
+      └───seg
+      └───wav
+      └───json
+```
+- run "node FloorTime.js"
+- you are now hosting on localhost:8080
