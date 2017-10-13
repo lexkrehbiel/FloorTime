@@ -10,9 +10,10 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var viewPath = __dirname+"/views/";
-var dataPath = __dirname+"/data/json/"
+var dataPath = __dirname+"/data/"
 var upload = require('./diarization_pipeline/Upload.js').run;
 var diarize = require('./diarization_pipeline/Diarize.js').run;
+var wavFileInfo = require('wav-file-info');
 var fs = require('fs');
 
 // render views in html
@@ -76,11 +77,21 @@ function showResults(req,res,next){
   // get the filename from the URL
   var fileName = req.params.jsonDataName;
 
-  // read the data from the file
-  var data = fs.readFileSync(dataPath+fileName+'.json', 'utf8');
+  wavFileInfo.infoByFilename(dataPath+'wav/'+fileName+'.wav', function(err, info){
 
-  // render the results page, supplying it with the necessary data
-  res.render(viewPath+'results.html',{data: data});
+      if (err) throw err;
 
-  next();
+      //console.log(info);
+
+      // read the data from the file
+      var data = fs.readFileSync(dataPath+'json/'+fileName+'.json', 'utf8');
+
+      // render the results page, supplying it with the necessary data
+      res.render(viewPath+'results.html',{
+        data: data,
+      });
+
+      next();
+  });
+
 }

@@ -8,7 +8,9 @@
     <script src="../static/vendors/bootstrap.min.js" ></script>
     <!-- Gain access to the data variable passed in (look up EJS)-->
     <script>
+      // get the sent data
       var data = <%- data %>;
+      //console.log(data);
     </script>
     <!-- Google Charts API -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -17,19 +19,47 @@
     <!-- Pie Chart Drivers -->
     <script type="text/javascript" src="../static/charts/SpeakerPieChart.js"></script>
     <script type="text/javascript" src="../static/charts/GenderPieChart.js"></script>
+
+    <!-- custom css -->
+    <link rel="stylesheet" type="text/css" href="../static/css/results.css" ></link>
   </head>
 
   <div class="container">
 
     <h1>Results</h1>
 
-    <div id="timeline"></div>
+    <audio controls class="wide-blob">
+      <source src="../static/utah.wav" type="audio/wav">
+      Your browser does not support the audio element.
+    </audio>
 
-    <div id="spkrpiechart"></div>
+    <a class="expand-one"> Show Split Speakers </a>
+    <div class="content-one wide-blob" id="timeline-exp"></div>
 
-    <div id="genderpiechart"></div>
+    <div class="wide-blob" id="timeline" style="height:7em"></div>
+
+    <div class="wide-blob" >
+        <div class="half-blob" id="spkrpiechart"></div>
+
+        <div class="half-blob" id="genderpiechart"></div>
+
+    </div>
 
   </div>
+
+  <script>
+    $('.content-one').slideToggle('slow');
+    var hidden = true;
+    $('.expand-one').click(function(){
+      $('.content-one').slideToggle('slow');
+      hidden = !hidden;
+      if(!hidden){
+        $(".expand-one").prop("text", "Hide Split Speakers");
+      } else {
+        $(".expand-one").prop("text", "Show Split Speakers");
+      }
+    });
+  </script>
 
 
 </html>

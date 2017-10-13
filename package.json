@@ -11,7 +11,8 @@
     "shelljs": "^0.7.8",
     "bluebird" : "^3.5.0",
     "formidable" : "^1.1.1",
-    "ejs": "^2.5.7"
+    "ejs": "^2.5.7",
+    "wav-file-info":"^0.0.8"
   },
   "engines": {
     "node": "4.0.0"
