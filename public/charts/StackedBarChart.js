@@ -12,7 +12,7 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 
   // identify the div to insert the timeline
-  var container = document.getElementById('tl');
+  var container = document.getElementById('timeline');
 
   // create a chart
   var chart = new google.visualization.Timeline(container);
