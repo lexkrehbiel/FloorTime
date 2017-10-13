@@ -1,12 +1,24 @@
 <html>
   <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/vendors/bootstrap.min.css"></link>
+    <!-- JQuery JS -->
+    <script src="../static/vendors/jquery.min.js" ></script>
+    <!-- Bootstrap JS -->
+    <script src="../static/vendors/bootstrap.min.js" ></script>
+    <!-- Gain access to the data variable passed in (look up EJS)-->
+    <script>
+      var data = <%- data %>;
+    </script>
+    <!-- Google Charts API -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="./charts/StackedBarChart.js"></script>
+    <!-- Bar Chart Driver -->
+    <script type="text/javascript" src="../static/charts/StackedBarChart.js"></script>
   </head>
 
-  <div ng-app="APP" ng-controller="StackedBar">
+  <div class="container">
+
+    <h1>Results</h1>
 
     <div id="tl"></div>
 
