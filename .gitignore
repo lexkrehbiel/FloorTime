@@ -2,6 +2,7 @@
 *.wav
 *.seg
 *.pyc
+*.mp3
+*.mp4
 node_modules
-data/*
 .DS_Store

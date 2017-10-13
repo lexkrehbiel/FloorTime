@@ -11,6 +11,7 @@ def translateAudioToWav(tag,filetype):
     dir = os.path.dirname(__file__)
     infile = os.path.join(dir, '../data/audio/'+tag+'.'+filetype)
     outfile = os.path.join(dir, '../data/wav/'+tag+'.wav')
+    outfile2 = os.path.join(dir,'../public/audio/'+tag+'.wav')
 
     # infile = '../data/audio/'+tag+'.'+filetype
     # outfile = '../data/wav/'+tag+'.wav'
@@ -34,6 +35,7 @@ def translateAudioToWav(tag,filetype):
 
         # export the wavdata to the data/wav directory
         wavData.export(outfile,format="wav")
+        wavData.export(outfile2,format="wav")
     else:
         # note the error
         print(filetype+'Is not a supported audio file type')

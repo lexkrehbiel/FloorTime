@@ -89,6 +89,7 @@ function showResults(req,res,next){
       // render the results page, supplying it with the necessary data
       res.render(viewPath+'results.html',{
         data: data,
+        url: fileName
       });
 
       next();
