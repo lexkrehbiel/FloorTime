@@ -11,5 +11,5 @@ project
       └───wav
       └───json
 ```
-- run "node FloorTime.js"
+- run "node index.js"
 - you are now hosting on localhost:8080
