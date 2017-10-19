@@ -15,6 +15,7 @@ var upload = require('./data_management/Upload.js').run;
 var diarize = require('./diarization_pipeline/Diarize.js').run;
 var db = require('./data_management/DBManager.js');
 var wavFileInfo = require('wav-file-info');
+var cleanup = require('./data_management/CleanUp.js');
 var fs = require('fs');
 
 // render views in html
@@ -60,10 +61,12 @@ function uploadSequence(req,res,next){
   .then(db.insert)
 
   // given the json fileoutput
-  .then(function(jsonFileName){
+  .then(function(file){
+
+    cleanup.run(file.tag, file.ext);
 
     // redirect to the desired results page
-    res.redirect('/results/'+jsonFileName);
+    res.redirect('/results/'+file.tag);
 
     next();
   })

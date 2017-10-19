@@ -30,7 +30,7 @@ exports.get = function(tag){
 
 }
 
-exports.insert = function(tag){
+exports.insert = function(file){
 
   // promise to insert into the database
   return new Promise(function(resolve,reject){
@@ -39,7 +39,7 @@ exports.insert = function(tag){
     console.log("inserting data into db");
 
     // get the json file's data
-    var data = require('../data/json/'+tag);
+    var data = require('../data/json/'+file.tag);
 
     // connect to mongo
     mongoClient.connect(mongo_url, function(err, db) {
@@ -49,8 +49,8 @@ exports.insert = function(tag){
 
       // generate session data, attaching the found data
       var session = {
-          name : tag,
-          wav  : audio_url+tag+".wav",
+          name : file.tag,
+          wav  : audio_url+file.tag+".wav",
           data : data
       }
 
@@ -61,7 +61,7 @@ exports.insert = function(tag){
         db.close();
 
         // return the tag name used for redirect
-        resolve(tag);
+        resolve(file);
       });
     });
 

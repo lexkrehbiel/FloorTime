@@ -27,7 +27,10 @@ exports.run = function(fileName) {
         // return the name of the file generated
         else {
           console.log(' finished diarization');
-          resolve(tag);
+          resolve({
+            tag: tag,
+            ext: type
+          });
         }
       })
   });
