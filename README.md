@@ -11,5 +11,8 @@ project
       └───wav
       └───json
 ```
+- install mongoDB
+- create directory /data/db, and give appropriate permissions
+- run "mongod --port 27017 --dbpath /data/db" to start database
 - run "node index.js"
 - you are now hosting on localhost:8080

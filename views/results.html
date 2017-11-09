@@ -9,8 +9,8 @@
     <!-- Gain access to the data variable passed in (look up EJS)-->
     <script>
       // get the sent data
-      var data = <%- data %>;
-      //console.log(data);
+      var input = <%- data %>;
+      var data = input.data;
     </script>
     <!-- Google Charts API -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -19,19 +19,24 @@
     <!-- Pie Chart Drivers -->
     <script type="text/javascript" src="../static/charts/SpeakerPieChart.js"></script>
     <script type="text/javascript" src="../static/charts/GenderPieChart.js"></script>
-
     <!-- custom css -->
     <link rel="stylesheet" type="text/css" href="../static/css/results.css" ></link>
   </head>
 
-  <div class="container">
+  <div class="container" ng-app="app" ng-controller="resultCtrl">
 
     <h1>Results</h1>
 
     <audio controls class="wide-blob">
-      <source src="../static/utah.wav" type="audio/wav">
+      <source src="" id="audioDiv" type="audio/wav">
       Your browser does not support the audio element.
     </audio>
+
+    <script>
+      // set the src of the audio div to point the url given
+      // in the sent data
+      $("#audioDiv").attr("src",input.wav);
+    </script>
 
     <a class="expand-one"> Show Split Speakers </a>
     <div class="content-one wide-blob" id="timeline-exp"></div>
