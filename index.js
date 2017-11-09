@@ -13,7 +13,9 @@ var viewPath = __dirname+"/views/";
 var dataPath = __dirname+"/data/"
 var upload = require('./diarization_pipeline/Upload.js');
 var diarize = require('./diarization_pipeline/Diarize.js');
+var db = require('./data_management/DBManager.js');
 var wavFileInfo = require('wav-file-info');
+var cleanup = require('./data_management/CleanUp.js');
 var fs = require('fs');
 
 // render views in html
@@ -68,11 +70,16 @@ function uploadSequence(req,res,next){
   // run the diarization sequence
   .then(diarize)
 
+  // move the data into the db
+  .then(db.insert)
+
   // given the json fileoutput
-  .then(function(jsonFileName){
+  .then(function(file){
+
+    cleanup.run(file.tag, file.ext);
 
     // redirect to the desired results page
-    res.redirect('/results/'+jsonFileName);
+    res.redirect('/results/'+file.tag);
 
     next();
   })
@@ -115,33 +122,18 @@ function showResults(req,res,next){
   // get the filename from the URL
   var fileName = req.params.jsonDataName;
 
-  // read the data from the file
-  var data = fs.readFileSync(dataPath+'json/'+fileName+'.json', 'utf8');
+  // get the record of the given file
+  db.get(fileName)
 
-  // render the results page, supplying it with the necessary data
-  res.render(viewPath+'results.html',{
-    data: data,
-    wav: JSON.stringify(fileName+".wav")
+  // render the results
+  .then(function(jsonData){
+
+    res.render(viewPath + 'results.html', {
+      data : JSON.stringify(jsonData),
+      wavUrl : JSON.stringify(jsonData.wav)
+    });
+
+    next();
   });
-
-  next();
-}
-
-// show results page, given a tag to refer to a json data file
-function showMultiResults(req,res,next){
-
-  // get the filename
-  var fileName = 'multi';
-
-  // read the data from the file
-  var data = fs.readFileSync(dataPath+'json/'+fileName+'.json', 'utf8');
-
-  // render the results page, supplying it with the necessary data
-  res.render(viewPath+'results_multi.html',{
-    data: data,
-    wav: "multi.wav"
-  });
-
-  next();
 
 }
