@@ -69,7 +69,10 @@ exports.multi = function(fileNames) {
         // return the name of the file generated
         else {
           console.log(' finished diarization');
-          resolve(tag);
+          resolve({
+            tag: "multi",
+            ext: "mp3"
+          });
         }
       })
   });
