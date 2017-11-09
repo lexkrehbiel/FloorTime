@@ -11,8 +11,8 @@ var app = express();
 var router = express.Router();
 var viewPath = __dirname+"/views/";
 var dataPath = __dirname+"/data/"
-var upload = require('./diarization_pipeline/Upload.js').run;
-var diarize = require('./diarization_pipeline/Diarize.js').run;
+var upload = require('./diarization_pipeline/Upload.js');
+var diarize = require('./diarization_pipeline/Diarize.js');
 var wavFileInfo = require('wav-file-info');
 var fs = require('fs');
 
@@ -25,13 +25,25 @@ app.use('/static',express.static('public'))
 // for /upload, run the uploadSequence function
 router.use('/upload', uploadSequence);
 
+// for /upload_multiple, run the multiUploadSequence function
+router.use('/upload_multiple', uploadMultipleSequence);
+
 // given results, find the JSON file corresponding to the tag
 // then display that file
-router.use('/results/:jsonDataName', showResults)
+router.use('/results/:jsonDataName', showResults);
+
+// given results, find the JSON file corresponding to the tag
+// then display that file
+router.use('/multiple_results', showMultiResults);
 
 // given the root, show the index
 router.get("/",function(req,res){
   res.sendFile(viewPath+'index.html')
+});
+
+// given the multi, show the multi-upload page
+router.get("/multiple",function(req,res){
+  res.sendFile(viewPath+'multi.html')
 });
 
 // use the router specified
@@ -39,6 +51,7 @@ app.use("/", router);
 
 app.get('*', function(req, res) {
   // handle miscellaneous requests
+  //console.log("caught "+req.url);
 });
 
 // run server on port 8080
@@ -50,7 +63,7 @@ app.listen(8080,function(){
 function uploadSequence(req,res,next){
 
   // run the upload promise
-  upload(req, res)
+  upload.single(req, res)
 
   // run the diarization sequence
   .then(diarize)
@@ -71,27 +84,64 @@ function uploadSequence(req,res,next){
   });
 }
 
+// upload the specified files
+function uploadMultipleSequence(req,res,next){
+
+  // run the upload promise
+  upload.multi(req, res)
+
+  // run the diarization sequence
+  .then(diarize.multi)
+
+  // given the json fileoutput
+  .then(function(jsonFileName){
+
+    // redirect to the desired results page
+    res.redirect('/multiple_results');
+
+    next();
+  })
+
+  // note any error
+  .catch(function(err){
+    console.log(err);
+    next();
+  });
+}
+
 // show results page, given a tag to refer to a json data file
 function showResults(req,res,next){
 
   // get the filename from the URL
   var fileName = req.params.jsonDataName;
 
-  wavFileInfo.infoByFilename(dataPath+'wav/'+fileName+'.wav', function(err, info){
+  // read the data from the file
+  var data = fs.readFileSync(dataPath+'json/'+fileName+'.json', 'utf8');
 
-      if (err) throw err;
-
-      //console.log(info);
-
-      // read the data from the file
-      var data = fs.readFileSync(dataPath+'json/'+fileName+'.json', 'utf8');
-
-      // render the results page, supplying it with the necessary data
-      res.render(viewPath+'results.html',{
-        data: data,
-      });
-
-      next();
+  // render the results page, supplying it with the necessary data
+  res.render(viewPath+'results.html',{
+    data: data,
+    wav: JSON.stringify(fileName+".wav")
   });
+
+  next();
+}
+
+// show results page, given a tag to refer to a json data file
+function showMultiResults(req,res,next){
+
+  // get the filename
+  var fileName = 'multi';
+
+  // read the data from the file
+  var data = fs.readFileSync(dataPath+'json/'+fileName+'.json', 'utf8');
+
+  // render the results page, supplying it with the necessary data
+  res.render(viewPath+'results_multi.html',{
+    data: data,
+    wav: "multi.wav"
+  });
+
+  next();
 
 }

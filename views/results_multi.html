@@ -9,8 +9,10 @@
     <!-- Gain access to the data variable passed in (look up EJS)-->
     <script>
       // get the sent data
-      var input = <%- data %>;
+      var data = <%- data %>;
       var data = input.data;
+      //console.log(input);
+      console.log(<%- wav %>);
     </script>
     <!-- Google Charts API -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -38,11 +40,6 @@
       $("#audioDiv").attr("src",input.wav);
     </script>
 
-    <a class="expand-one"> Show Split Speakers </a>
-    <div class="content-one wide-blob" id="timeline-exp"></div>
-
-    <div class="wide-blob" id="timeline" style="height:7em"></div>
-
     <div class="wide-blob" >
         <div class="half-blob" id="spkrpiechart"></div>
 
@@ -52,19 +49,6 @@
 
   </div>
 
-  <script>
-    $('.content-one').slideToggle('slow');
-    var hidden = true;
-    $('.expand-one').click(function(){
-      $('.content-one').slideToggle('slow');
-      hidden = !hidden;
-      if(!hidden){
-        $(".expand-one").prop("text", "Hide Split Speakers");
-      } else {
-        $(".expand-one").prop("text", "Show Split Speakers");
-      }
-    });
-  </script>
 
 
 </html>
