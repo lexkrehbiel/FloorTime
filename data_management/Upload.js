@@ -45,8 +45,14 @@ exports.multi = function(req,res){
     // parse the form
     form.parse(req, function (err, fields, files) {
 
+      // ensure that the inputs are an array
+      var files_found = files.filesToUpload;
+      if(!Array.isArray(files_found)){
+        files_found = [files_found];
+      }
+
       // generate promises for each file
-      var filePromises = files.filesToUpload.map(single_upload);
+      var filePromises = files_found.map(single_upload);
 
       // run all the promises
       Promise.all(filePromises)

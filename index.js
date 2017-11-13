@@ -36,7 +36,7 @@ router.use('/results/:jsonDataName', showResults);
 
 // given results, find the JSON file corresponding to the tag
 // then display that file
-router.use('/multiple_results', showMultiResults);
+router.use('/multiple_results/:jsonDataName', showMultiResults);
 
 // given the root, show the index
 router.get("/",function(req,res){
@@ -106,10 +106,10 @@ function uploadMultipleSequence(req,res,next){
   // given the json fileoutput
   .then(function(file){
 
-    cleanup.run(file.tag, file.ext);
+    cleanup.run(file.tag, file.ext, file.files);
 
     // redirect to the desired results page
-    res.redirect('/multiple_results');
+    res.redirect('/multiple_results/'+file.tag);
 
     next();
   })
@@ -136,8 +136,13 @@ function showResults(req,res,next){
     res.render(viewPath + 'results.html', {
       data : JSON.stringify(jsonData),
       wavUrl : JSON.stringify(jsonData.wav)
-    });
+    })
 
+    next();
+
+  }).catch(function(err){
+
+    console.log(err);
     next();
   });
 
@@ -147,7 +152,7 @@ function showResults(req,res,next){
 function showMultiResults(req,res,next){
 
   // get the filename from the URL
-  var fileName = "multi";
+  var fileName = req.params.jsonDataName;
 
   // get the record of the given file
   db.get(fileName)
@@ -160,6 +165,10 @@ function showMultiResults(req,res,next){
       wavUrl : jsonData.wav
     });
 
+    next();
+  }).catch(function(err){
+
+    console.log(err);
     next();
   });
 

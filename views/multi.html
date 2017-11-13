@@ -40,15 +40,18 @@
       }
     </script>
 
+    <h5>Select files to upload:</h5>
+    <h7>
+      <button id="falseinput" class="btn btn-primary">Choose Files</button>
+      <div id="selected_filenames">No file selected</div>
+    </h7>
+
     <!-- On submit, redirects to upload -->
     <form action="upload_multiple" method="post" enctype="multipart/form-data">
-        <h5>Select an audio file to upload:</h5>
-        <h7>
-          <input name="filesToUpload" id="filesToUpload" type="file" multiple="" />
-        </h7>
+        <input name="filesToUpload" id="filesinput" type="file" multiple="" style="display:none"/>
         <div class="row">
           <span class="col-md-4" id="btnSpn">
-            <input id="uploadBtn" style="margin-top:10px" class="btn btn-primary" type="submit" value="Upload File" name="filetoupload">
+            <input id="uploadBtn" style="margin-top:10px" class="btn btn-primary" type="submit" value="Upload Files" name="filetoupload">
           </span>
           <span class="col-md-4"><div id = "loader" class="loader" ></div></span>
         </div>
@@ -56,6 +59,25 @@
     <!-- IMPORTANT:  FORM's enctype must be "multipart/form-data" -->
     <a href = ""> Upload a single file </a>
     </div>
+
+    <script>
+    // change the appearance of the file div when the user selects a file
+      $(document).ready( function() {
+        $('#falseinput').click(function(){
+          $("#filesinput").click();
+        });
+      });
+      $('#filesinput').change(function() {
+        console.log($('#filesinput'));
+        var numFiles = $('#filesinput')[0].files.length;
+        var msg = " files selected";
+        if( numFiles == 1){
+          msg = " file selected";
+        }
+        $('#selected_filenames').text(numFiles + msg);
+      });
+
+    </script>
 
   </body>
 </html>

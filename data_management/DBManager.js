@@ -18,7 +18,7 @@ exports.get = function(tag){
           if (err) throw reject(err);
 
           // log success
-          console.log("found a result")
+          console.log("found a result for "+tag)
           console.log(result);
           db.close();
 
@@ -36,7 +36,7 @@ exports.insert = function(file){
   return new Promise(function(resolve,reject){
 
     // insert data into db
-    console.log("inserting data into db");
+    console.log("inserting data into db at "+file.tag);
 
     // get the json file's data
     var data = require('../data/json/'+file.tag);
@@ -57,7 +57,8 @@ exports.insert = function(file){
       // connect to the sessions table and insert
       db.collection("sessions").insertOne(session, function(err, res) {
         if (err) throw err;
-        console.log("1 document inserted");
+        console.log("1 document inserted:");
+        console.log(session);
         db.close();
 
         // return the tag name used for redirect

@@ -45,7 +45,9 @@ exports.multi = function(fileNames) {
 
       console.log('running diarizations');
 
-      var command = " ";
+      var now = "_"+(new Date()).getTime();
+
+      var command = " "+now+" ";
 
       // go through each file given
       fileNames.forEach(function(fileName){
@@ -70,8 +72,9 @@ exports.multi = function(fileNames) {
         else {
           console.log(' finished diarization');
           resolve({
-            tag: "multi",
-            ext: "mp3"
+            tag: now,
+            ext: "mp3",
+            files: fileNames
           });
         }
       })
