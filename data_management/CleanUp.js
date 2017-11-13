@@ -4,7 +4,7 @@
 var fs = require('fs');
 
 // delete the files corresponding to this tag
-exports.run = function(tag, type){
+exports.run = function(tag, type, files){
 
     // the file names to delete
     var toDelete = [
@@ -13,6 +13,25 @@ exports.run = function(tag, type){
       '/data/seg/'+tag+'.seg',
       '/data/wav/'+tag+'.wav'
     ];
+
+    // if there are children, clean up the wavs and audio files, too
+    if (files){
+      var rawAudio = files.map(function(fileName){
+        return '/data/audio/'+fileName;
+      });
+      var wavs = files.map(function(fileName){
+        // separate the file into it's name and extension
+        var periodIndex = fileName.lastIndexOf('.');
+        var tg = fileName.substring(0,periodIndex);
+        return '/data/wav/'+tg+'.wav';
+      });
+      console.log("deleting");
+      console.log(wavs);
+      console.log(rawAudio);
+      toDelete = toDelete.concat(rawAudio).concat(wavs);
+    }
+
+    console.log(files);
 
     // strip the last directory off
     var lastDirIndex = __dirname.lastIndexOf('/');

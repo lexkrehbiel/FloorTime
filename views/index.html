@@ -40,10 +40,15 @@
       }
     </script>
 
+    <h5>Select an audio file to upload:</h5>
+    <h7>
+      <button id="falseinput" class="btn btn-primary">Choose File</button>
+      <div id="selected_filename">No file selected</div>
+    </h7>
+
     <!-- On submit, redirects to upload -->
     <form action="upload" method="post" enctype="multipart/form-data">
-        <h5>Select an audio file to upload:</h5>
-        <h7><input type="file" name="filetoupload"></h7>
+        <input type="file" name="filetoupload" id="fileinput" style="display:none">
         <div class="row">
           <span class="col-md-4" id="btnSpn">
             <input id="uploadBtn" style="margin-top:10px" class="btn btn-primary" type="submit" value="Upload File" name="filetoupload">
@@ -53,6 +58,20 @@
     </form>
     <a href = "multiple"> Upload multiple files </a>
     </div>
+
+    <script>
+    // change the appearance of the file div when the user selects a file
+      $(document).ready( function() {
+        $('#falseinput').click(function(){
+          $("#fileinput").click();
+        });
+      });
+      $('#fileinput').change(function() {
+        $('#selected_filename').text($('#fileinput')[0].files[0].name);
+      });
+
+    </script>
+
 
   </body>
 </html>

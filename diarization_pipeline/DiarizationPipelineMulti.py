@@ -8,12 +8,14 @@ import sys
 import wave
 import os
 
-multi = "multi"
+name = sys.argv[1]
 data= []
 dir = os.path.dirname(__file__)
 
+num_files = (len(sys.argv)-2)/2
+
 # for all files given
-for i in range(1,len(sys.argv)-1,2):
+for i in range(2,len(sys.argv),2):
 
     # strip the arguments
     tag = sys.argv[i];
@@ -26,22 +28,24 @@ for i in range(1,len(sys.argv)-1,2):
     fileName = os.path.join(dir, '../data/wav/'+tag+'.wav')
 
     w = wave.open(fileName, 'rb')
-    data.append( [w.getparams(), w.readframes(w.getnframes())] )
+
+    data = data + [[w.getparams(), w.readframes(w.getnframes())]]
     w.close()
 
-
-# write the output
-# outfile = os.path.join(dir, '../data/wav/'+tag+'.wav')
-outfile = os.path.join(dir, '../data/wav/'+multi+'.wav')
-#outfile = "/Users/lexieKrehbiel/Documents/SrProject/FloorTime/data/wav/multi.wav"
+# initialize the output file
+outfile = os.path.join(dir, '../data/wav/'+name+'.wav')
 output = wave.open(outfile, 'wb')
 output.setparams(data[0][0])
-output.writeframes(data[0][1])
-output.writeframes(data[1][1])
+
+# write the frames for all the files
+for i in range(0,num_files):
+    output.writeframes(data[i][1])
+
+# close the output
 output.close()
 
 # run the lium jar on the wav file
-Diarizer.runLium(multi)
+Diarizer.runLium(name)
 
 # translate the output to a JSON object
-SegParser.translateSegToJSON(multi)
+SegParser.translateSegToJSON(name)
