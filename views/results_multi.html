@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/vendors/bootstrap.min.css"></link>
+    <!-- JQuery JS -->
+    <script src="../static/vendors/jquery.min.js" ></script>
+    <!-- Bootstrap JS -->
+    <script src="../static/vendors/bootstrap.min.js" ></script>
+    <!-- Gain access to the data variable passed in (look up EJS)-->
+    <script>
+      // get the sent data
+      var input = <%- data %>;
+      var data = input.data;
+    </script>
+    <!-- Google Charts API -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Pie Chart Drivers -->
+    <script type="text/javascript" src="../static/charts/SpeakerPieChart.js"></script>
+    <script type="text/javascript" src="../static/charts/GenderPieChart.js"></script>
+    <!-- custom css -->
+    <link rel="stylesheet" type="text/css" href="../static/css/results.css" ></link>
+  </head>
+
+  <div class="container" ng-app="app" ng-controller="resultCtrl">
+
+    <h1>Aggregated Results</h1>
+
+    <div class="wide-blob" >
+        <div class="half-blob" id="spkrpiechart"></div>
+
+        <div class="half-blob" id="genderpiechart"></div>
+
+    </div>
+
+  </div>
+
+
+</html>

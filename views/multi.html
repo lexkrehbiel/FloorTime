@@ -41,9 +41,11 @@
     </script>
 
     <!-- On submit, redirects to upload -->
-    <form action="upload" method="post" enctype="multipart/form-data">
+    <form action="upload_multiple" method="post" enctype="multipart/form-data">
         <h5>Select an audio file to upload:</h5>
-        <h7><input type="file" name="filetoupload"></h7>
+        <h7>
+          <input name="filesToUpload" id="filesToUpload" type="file" multiple="" />
+        </h7>
         <div class="row">
           <span class="col-md-4" id="btnSpn">
             <input id="uploadBtn" style="margin-top:10px" class="btn btn-primary" type="submit" value="Upload File" name="filetoupload">
@@ -51,7 +53,8 @@
           <span class="col-md-4"><div id = "loader" class="loader" ></div></span>
         </div>
     </form>
-    <a href = "multiple"> Upload multiple files </a>
+    <!-- IMPORTANT:  FORM's enctype must be "multipart/form-data" -->
+    <a href = ""> Upload a single file </a>
     </div>
 
   </body>

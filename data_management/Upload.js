@@ -4,7 +4,7 @@
 var formidable = require('formidable');
 var fs = require('fs');
 
-exports.run = function(req,res){
+exports.single = function(req,res){
 
   // promise to perform the upload
   return new Promise(function(resolve,reject){
@@ -17,8 +17,56 @@ exports.run = function(req,res){
     // parse the form
     form.parse(req, function (err, fields, files) {
 
-      // get the old path (the temp path)
-      var oldpath = files.filetoupload.path;
+      // upload the given file
+      single_upload(files.filetoupload)
+
+      // resolve the result
+      .then(function(result){
+        resolve(result);
+      });
+
+   });
+  })
+
+}
+
+exports.multi = function(req,res){
+
+  // promise to perform the upload
+  return new Promise(function(resolve,reject){
+
+    console.log('running uploads');
+
+    // generate a new form
+    var form = new formidable.IncomingForm();
+
+    form.multiples = true;
+
+    // parse the form
+    form.parse(req, function (err, fields, files) {
+
+      // generate promises for each file
+      var filePromises = files.filesToUpload.map(single_upload);
+
+      // run all the promises
+      Promise.all(filePromises)
+
+      // return the results
+      .then(function(results){
+        resolve(results);
+      })
+    });
+  });
+
+}
+
+// promise to upload a single file
+function single_upload(file){
+
+  return new Promise(function(resolve,reject){
+
+      // get the file's path
+      var oldpath = file.path;
 
       // strip the last directory off
       var lastDirIndex = __dirname.lastIndexOf('/');
@@ -28,7 +76,7 @@ exports.run = function(req,res){
       var directory = parent+'/data/audio/';
 
       // generate the new path
-      var newFileName = files.filetoupload.name;
+      var newFileName = file.name;
       var newpath = directory + newFileName;
 
       // move the file
@@ -43,7 +91,6 @@ exports.run = function(req,res){
           resolve(newFileName);
         }
       });
-   });
-  })
 
+  });
 }

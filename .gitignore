@@ -4,4 +4,5 @@
 *.pyc
 node_modules
 data/*
+diarization_pipeline/Combiner.js
 .DS_Store
