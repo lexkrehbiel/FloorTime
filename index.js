@@ -27,6 +27,13 @@ app.set('port', (process.env.PORT || 5000))
 // render views in html
 app.engine('html', require('ejs').renderFile);
 
+// set cors possibility
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // anything at /static, reference the public directory
 app.use('/static',express.static('public'))
 
