@@ -18,6 +18,10 @@ var cleanup = require('./data_management/CleanUp.js');
 var fs = require('fs');
 const aws = require('aws-sdk');
 
+// configure AWS & S3
+const S3_BUCKET = process.env.S3_BUCKET;
+aws.config.region = 'eu-west-1';
+
 app.set('port', (process.env.PORT || 5000))
 
 // render views in html
