@@ -16,6 +16,7 @@ var diarize = require('./diarization_pipeline/Diarize.js');
 var db = require('./data_management/DBManager.js');
 var cleanup = require('./data_management/CleanUp.js');
 var fs = require('fs');
+const aws = require('aws-sdk');
 
 app.set('port', (process.env.PORT || 5000))
 
