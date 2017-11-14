@@ -1,7 +1,7 @@
 /*This module performs the insert into the mongo database*/
 
 var mongoClient = require('mongodb').MongoClient;
-var mongo_url = "mongodb://localhost:27017/mydb";
+var mongo_url = "mongodb://ft_admin:ftadmin@ds159235.mlab.com:59235/floortime";
 var audio_url = "../static/audio/";
 
 exports.get = function(tag){
