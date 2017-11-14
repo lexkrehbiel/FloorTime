@@ -7,6 +7,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "aws-sdk": "^2.149.0",
     "bluebird": "^3.5.0",
     "ejs": "^2.5.7",
     "express": "^4.15.4",

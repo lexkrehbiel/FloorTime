@@ -41,12 +41,12 @@ router.use('/multiple_results/:jsonDataName', showMultiResults);
 
 // given the root, show the index
 router.get("/",function(req,res){
-  res.sendFile(viewPath+'index.html')
+  res.render(viewPath+'index.html')
 });
 
 // given the multi, show the multi-upload page
 router.get("/multiple",function(req,res){
-  res.sendFile(viewPath+'multi.html')
+  res.render(viewPath+'multi.html')
 });
 
 // use the router specified

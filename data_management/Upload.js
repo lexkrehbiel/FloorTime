@@ -3,6 +3,11 @@
 // node imports
 var formidable = require('formidable');
 var fs = require('fs');
+const aws = require('aws-sdk');
+
+// configure AWS & S3
+const S3_BUCKET = process.env.S3_BUCKET;
+aws.config.region = 'eu-west-1';
 
 exports.single = function(req,res){
 
@@ -11,21 +16,48 @@ exports.single = function(req,res){
 
     console.log('running upload');
 
+    const s3 = new aws.S3();
+    const fileName = req.query['file-name'];
+    const fileType = req.query['file-type'];
+    const s3Params = {
+      Bucket: S3_BUCKET,
+      Key: fileName,
+      Expires: 60,
+      ContentType: fileType,
+      ACL: 'public-read'
+    };
+
+    s3.getSignedUrl('putObject', s3Params, (err, data) => {
+      if(err){
+        console.log(err);
+        return res.end();
+      }
+      const returnData = {
+        signedRequest: data,
+        url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+      };
+      res.write(JSON.stringify(returnData));
+      resolve(fileName)
+      //res.end();
+    });
+
+
+
     // generate a new form
-    var form = new formidable.IncomingForm();
-
-    // parse the form
-    form.parse(req, function (err, fields, files) {
-
-      // upload the given file
-      single_upload(files.filetoupload)
-
-      // resolve the result
-      .then(function(result){
-        resolve(result);
-      });
-
-   });
+  //   var form = new formidable.IncomingForm();
+   //
+  //   // parse the form
+  //   form.parse(req, function (err, fields, files) {
+   //
+  //     // upload the given file
+  //     single_upload(files.filetoupload)
+   //
+  //     // resolve the result
+  //     .then(function(result){
+  //       resolve(result);
+  //     });
+   //
+  //  });
   })
 
 }

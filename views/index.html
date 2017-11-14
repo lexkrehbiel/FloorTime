@@ -68,6 +68,12 @@
       });
       $('#fileinput').change(function() {
         $('#selected_filename').text($('#fileinput')[0].files[0].name);
+        const files = document.getElementById('#fileinput').files;
+        const file = files[0];
+        if(file == null){
+          return alert('No file selected.');
+        }
+        getSignedRequest(file);
       });
 
     </script>
