@@ -75,15 +75,19 @@ function single_upload(file){
       var oldpath = file.path;
 
       // strip the last directory off
-      var lastDirIndex = __dirname.lastIndexOf('/');
-      var parent = __dirname.substring(0,lastDirIndex);
+      //var lastDirIndex = __dirname.lastIndexOf('/');
+      //var parent = __dirname.substring(0,lastDirIndex);
 
       // determine the directory
-      var directory = parent+'/tmp/';
+      var directory = '/tmp/';
 
       // generate the new path
       var newFileName = file.name;
       var newpath = directory + newFileName;
+
+      if (path.existsSync(oldpath)) {
+        console.log("Found the old file at "+oldpath);
+      }
 
       // move the file
       fs.rename(oldpath, newpath, function (err) {
