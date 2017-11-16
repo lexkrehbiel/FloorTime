@@ -13,7 +13,7 @@ def runLium(tag):
     inpath = '/tmp/'+tag+'.wav'
 
     # generate the command line components
-    javaPath = "/usr/bin/java "
+    javaPath = "java "
     res = "-Xmx2024m "
     jar = "-jar "
     inputMask = "--fInputMask="+inpath+" "
