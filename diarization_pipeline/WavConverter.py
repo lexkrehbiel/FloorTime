@@ -14,7 +14,7 @@ def translateAudioToWav(tag,filetype):
     directNames = {'ogg','flv','mp3'}
 
     # if this extension is valid for the pydub to convert it,
-    if filetype in supportedInputTypes:
+    if filetype.lower() in supportedInputTypes:
 
         # get the method to run the .wav conversion
         method = getattr(AudioSegment,'from_file')

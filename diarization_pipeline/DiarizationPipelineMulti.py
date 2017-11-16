@@ -17,7 +17,7 @@ for i in range(2,len(sys.argv),2):
 
     # strip the arguments
     tag = sys.argv[i];
-    filetype = sys.argv[i+1].lower();
+    filetype = sys.argv[i+1];
 
     # put the file in the correct format
     WavConverter.translateAudioToWav(tag,filetype)

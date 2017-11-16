@@ -10,9 +10,6 @@ def translateSegToJSON(tag):
     infile = '/tmp/'+tag+'.seg'
     outfile = '/tmp/'+tag+'.json'
 
-    print(infile)
-    print(outfile)
-
     # store the segment data
     segments = []
 

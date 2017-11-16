@@ -22,7 +22,5 @@ def runLium(tag):
     command =javaPath + res + jar + liumPath + inputMask + outputMask + options
     # pass the generated command to the operating system
     os.system(command)
-
-    #print(1/(1-1))
-
+    
     return 0
