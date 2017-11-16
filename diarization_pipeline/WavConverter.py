@@ -9,12 +9,12 @@ import os
 def translateAudioToWav(tag,filetype):
 
     dir = os.path.dirname(__file__)
-    infile = os.path.join(dir, '../data/audio/'+tag+'.'+filetype)
-    outfile = os.path.join(dir, '../data/wav/'+tag+'.wav')
+    infile = os.path.join(dir, '../tmp/'+tag+'.'+filetype)
+    outfile = os.path.join(dir, '../tmp/'+tag+'.wav')
     publicOutfile = os.path.join(dir, '../public/audio/'+tag+'.wav')
 
-    # infile = '../data/audio/'+tag+'.'+filetype
-    # outfile = '../data/wav/'+tag+'.wav'
+    # infile = '../tmp/'+tag+'.'+filetype
+    # outfile = '../tmp/'+tag+'.wav'
 
     supportedInputTypes = {'mp3','ogg','mp4','flv','wma','aac','wav'}
     directNames = {'ogg','flv','mp3'}

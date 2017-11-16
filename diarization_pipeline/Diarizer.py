@@ -9,8 +9,8 @@ def runLium(tag):
 
     dir = os.path.dirname(__file__)
     liumPath = os.path.join(dir, '../vendors/lium.jar')+" "
-    outpath = os.path.join(dir, '../data/seg/'+tag+'.seg')
-    inpath = os.path.join(dir, '../data/wav/'+tag+'.wav')
+    outpath = os.path.join(dir, '../tmp/'+tag+'.seg')
+    inpath = os.path.join(dir, '../tmp/'+tag+'.wav')
 
     # generate the command line components
     javaPath = "/usr/bin/java "

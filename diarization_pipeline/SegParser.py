@@ -9,8 +9,8 @@ import os
 def translateSegToJSON(tag):
 
     dir = os.path.dirname(__file__)
-    infile = os.path.join(dir, '../data/seg/'+tag+'.seg')
-    outfile = os.path.join(dir, '../data/json/'+tag+'.json')
+    infile = os.path.join(dir, '../tmp/'+tag+'.seg')
+    outfile = os.path.join(dir, '../tmp/'+tag+'.json')
 
     print(infile)
     print(outfile)

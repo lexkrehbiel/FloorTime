@@ -39,7 +39,7 @@ exports.insert = function(file){
     console.log("inserting data into db at "+file.tag);
 
     // get the json file's data
-    var data = require('../data/json/'+file.tag);
+    var data = require('../tmp/'+file.tag);
 
     // connect to mongo
     mongoClient.connect(mongo_url, function(err, db) {

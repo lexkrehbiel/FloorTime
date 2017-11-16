@@ -25,7 +25,7 @@ for i in range(2,len(sys.argv),2):
     WavConverter.translateAudioToWav(tag,filetype)
 
     dir = os.path.dirname(__file__)
-    fileName = os.path.join(dir, '../data/wav/'+tag+'.wav')
+    fileName = os.path.join(dir, '../tmp/'+tag+'.wav')
 
     w = wave.open(fileName, 'rb')
 
@@ -33,7 +33,7 @@ for i in range(2,len(sys.argv),2):
     w.close()
 
 # initialize the output file
-outfile = os.path.join(dir, '../data/wav/'+name+'.wav')
+outfile = os.path.join(dir, '../tmp/'+name+'.wav')
 output = wave.open(outfile, 'wb')
 output.setparams(data[0][0])
 

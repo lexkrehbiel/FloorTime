@@ -8,22 +8,22 @@ exports.run = function(tag, type, files){
 
     // the file names to delete
     var toDelete = [
-      '/data/audio/'+tag+'.'+type,
-      '/data/json/'+tag+'.json',
-      '/data/seg/'+tag+'.seg',
-      '/data/wav/'+tag+'.wav'
+      tag+'.'+type,
+      tag+'.json',
+      tag+'.seg',
+      tag+'.wav'
     ];
 
     // if there are children, clean up the wavs and audio files, too
     if (files){
       var rawAudio = files.map(function(fileName){
-        return '/data/audio/'+fileName;
+        return fileName;
       });
       var wavs = files.map(function(fileName){
         // separate the file into it's name and extension
         var periodIndex = fileName.lastIndexOf('.');
         var tg = fileName.substring(0,periodIndex);
-        return '/data/wav/'+tg+'.wav';
+        return tg+'.wav';
       });
       console.log("deleting");
       console.log(wavs);
@@ -41,7 +41,7 @@ exports.run = function(tag, type, files){
     toDelete.forEach(function(path){
 
       // check that it exists
-      fs.exists(parent+path, function(exists) {
+      fs.exists(parent+'/tmp/'+path, function(exists) {
 
 
         if(exists) {

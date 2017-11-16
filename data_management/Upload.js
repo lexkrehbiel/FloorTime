@@ -79,7 +79,7 @@ function single_upload(file){
       var parent = __dirname.substring(0,lastDirIndex);
 
       // determine the directory
-      var directory = parent+'/data/audio/';
+      var directory = parent+'/tmp/';
 
       // generate the new path
       var newFileName = file.name;
