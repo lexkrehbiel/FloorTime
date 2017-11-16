@@ -26,32 +26,24 @@ exports.run = function(tag, type, files){
         return tg+'.wav';
       });
       console.log("deleting");
-      console.log(wavs);
-      console.log(rawAudio);
       toDelete = toDelete.concat(rawAudio).concat(wavs);
     }
-
-    console.log(files);
-
-    // strip the last directory off
-    var lastDirIndex = __dirname.lastIndexOf('/');
-    var parent = __dirname.substring(0,lastDirIndex);
 
     // for every file to delete
     toDelete.forEach(function(path){
 
       // check that it exists
-      fs.exists(parent+'/tmp/'+path, function(exists) {
+      fs.exists('/tmp/'+path, function(exists) {
 
 
         if(exists) {
-          console.log('Deleting '+parent+path);
+          console.log('Deleting '+path);
 
           // delete the file
-          fs.unlink(parent+path);
+          fs.unlink('/tmp/'+path);
         } else {
 
-          console.log(parent+path+' not found, so not deleting.');
+          console.log(path+' not found, so not deleting.');
         }
 
       });

@@ -3,14 +3,12 @@
 # input: tag name for both the .seg and the .json files
 
 import json
-import os
 
 # convert seg file to JSON
 def translateSegToJSON(tag):
 
-    dir = os.path.dirname(__file__)
-    infile = os.path.join(dir, '../tmp/'+tag+'.seg')
-    outfile = os.path.join(dir, '../tmp/'+tag+'.json')
+    infile = '/tmp/'+tag+'.seg'
+    outfile = '/tmp/'+tag+'.json'
 
     print(infile)
     print(outfile)
