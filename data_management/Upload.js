@@ -85,9 +85,11 @@ function single_upload(file){
       var newFileName = file.name;
       var newpath = directory + newFileName;
 
-      if (path.existsSync(oldpath)) {
-        console.log("Found the old file at "+oldpath);
-      }
+      console.log("looking for "+oldpath);
+
+      // if (path.existsSync(oldpath)) {
+      //   console.log("Found the old file at "+oldpath);
+      // }
 
       // move the file
       fs.rename(oldpath, newpath, function (err) {
