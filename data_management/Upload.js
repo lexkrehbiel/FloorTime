@@ -73,11 +73,7 @@ function single_upload(file){
 
       // get the file's path
       var oldpath = file.path;
-
-      // strip the last directory off
-      //var lastDirIndex = __dirname.lastIndexOf('/');
-      //var parent = __dirname.substring(0,lastDirIndex);
-
+      
       // determine the directory
       var directory = '/tmp/';
 
@@ -97,7 +93,7 @@ function single_upload(file){
 
         // resolve the promise
         else {
-          console.log('   finished upload');
+          console.log('   finished upload '+newpath);
 
           // return the new file's name
           resolve(newFileName);
