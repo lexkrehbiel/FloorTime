@@ -32,7 +32,7 @@ router.use('/upload_multiple', uploadMultipleSequence);
 
 // given results, find the JSON file corresponding to the tag
 // then display that file
-router.use('/results/:jsonDataName', showResults);
+router.use('/results/:jsonDataName', showSingleResults);
 
 // given results, find the JSON file corresponding to the tag
 // then display that file
@@ -58,7 +58,7 @@ app.get('*', function(req, res) {
 
 // run server on port 8080
 app.listen( app.get('port'),function(){
-  console.log("App is running on port");
+  console.log("App is running on port "+app.get('port'));
 });
 
 // upload the specified file
@@ -66,6 +66,9 @@ function uploadSequence(req,res,next){
 
   // run the upload promise
   upload.single(req, res)
+
+  /// redirect to avoid hanging
+  .then(waitRedirect.bind(null,res,'/results/',next))
 
   // run the diarization sequence
   .then(diarize.single)
@@ -78,16 +81,11 @@ function uploadSequence(req,res,next){
 
     cleanup.run(file.tag, file.ext);
 
-    // redirect to the desired results page
-    res.redirect('/results/'+file.tag);
-
-    next();
   })
 
   // note any error
   .catch(function(err){
     console.log(err);
-    next();
   });
 }
 
@@ -96,6 +94,9 @@ function uploadMultipleSequence(req,res,next){
 
   // run the upload promise
   upload.multi(req, res)
+
+  // redirect to avoid hanging
+  .then(waitRedirect.bind(null,res,'/multiple_results/',next))
 
   // run the diarization sequence
   .then(diarize.multi)
@@ -108,49 +109,54 @@ function uploadMultipleSequence(req,res,next){
 
     cleanup.run(file.tag, file.ext, file.files);
 
-    // redirect to the desired results page
-    res.redirect('/multiple_results/'+file.tag);
-
-    next();
   })
 
   // note any error
   .catch(function(err){
     console.log(err);
+  });
+}
+
+// redirect to the results page
+function waitRedirect(res,page,next,input){
+
+  return new Promise(function(resolve,reject){
+
+    // redirect to the desired results page
+    res.redirect(page+input.name);
+
+    // pass the input down the promise chain
+    resolve(input);
+
+    //
     next();
   });
 }
 
 // show results page, given a tag to refer to a json data file
-function showResults(req,res,next){
+function showSingleResults(req,res,next){
 
-  // get the filename from the URL
-  var fileName = req.params.jsonDataName;
-
-  // get the record of the given file
-  db.get(fileName)
-
-  // render the results
-  .then(function(jsonData){
-
-    res.render(viewPath + 'results.html', {
-      data : JSON.stringify(jsonData),
-      wavUrl : JSON.stringify(jsonData.wav)
-    })
-
-    next();
-
-  }).catch(function(err){
-
-    console.log(err);
-    next();
-  });
+  // show the results for a single diarization
+  showResults(req,res,next,false);
 
 }
 
 // show results page, given a tag to refer to a json data file
 function showMultiResults(req,res,next){
 
+  // show the results for a multi diarization
+  showResults(req,res,next,true);
+
+}
+
+function showResults(req,res,next,multi){
+
+  // send the multi view if multi
+  var view = "results.html";
+  if(multi){
+    view = "multiple_results.html";
+  }
+
   // get the filename from the URL
   var fileName = req.params.jsonDataName;
 
@@ -160,16 +166,30 @@ function showMultiResults(req,res,next){
   // render the results
   .then(function(jsonData){
 
-    res.render(viewPath + 'results_multi.html', {
-      data : JSON.stringify(jsonData),
-      wavUrl : jsonData.wav
-    });
+    // if we got a result, go to the results page!
+    if(jsonData){
+
+      console.log('sending results');
+
+      res.render(viewPath + view, {
+        data : JSON.stringify(jsonData),
+        wavUrl : jsonData.wav
+      });
+    }
+
+    // otherwise, tell the user to chill
+    else {
+      console.log('sending waiting page');
+      res.render(viewPath+'waiting.html');
+    }
 
     next();
+
   }).catch(function(err){
 
     console.log(err);
     next();
   });
+
 
 }

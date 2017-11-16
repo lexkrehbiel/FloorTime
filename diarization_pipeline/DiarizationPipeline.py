@@ -7,14 +7,15 @@ import Diarizer
 import sys
 
 # strip the arguments
-tag = sys.argv[1];
-filetype = sys.argv[2].lower();
+name = sys.argv[1]
+tag = sys.argv[2]
+filetype = sys.argv[3].lower()
 
 # put the file in the correct format
-WavConverter.translateAudioToWav(tag,filetype)
+WavConverter.translateAudioToWav(name,tag,filetype)
 
 # run the lium jar on the wav file
-Diarizer.runLium(tag)
+Diarizer.runLium(name)
 
 # translate the output to a JSON object
-SegParser.translateSegToJSON(tag)
+SegParser.translateSegToJSON(name)

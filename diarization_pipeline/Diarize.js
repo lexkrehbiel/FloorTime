@@ -6,27 +6,26 @@
 
 var shell = require('shelljs');
 
-exports.single = function(fileName) {
+exports.single = function(input) {
 
   // promise to diarize
   return new Promise(function(resolve,reject){
+
+      var fileName = input.files;
 
       // separate the file into it's name and extension
       periodIndex = fileName.lastIndexOf('.');
       tag = fileName.substring(0,periodIndex);
       type = fileName.substring(periodIndex+1,fileName.length);
-
-      console.log('running diarization: python '+__dirname+ '/DiarizationPipeline.py '+tag+' '+type);
-
       // transfer control to the command line, calling the python script for diarization
-      shell.exec('python '+__dirname+ '/DiarizationPipeline.py '+tag+' '+type, function(err,results){
+      shell.exec('python '+__dirname+ '/DiarizationPipeline.py '+input.name+' '+tag+' '+type, function(err,results){
         if (err) reject(err);
 
         // return the name of the file generated
         else {
           console.log(' finished diarization');
           resolve({
-            tag: tag,
+            tag: input.name,
             ext: type
           });
         }
@@ -36,16 +35,16 @@ exports.single = function(fileName) {
 }
 
 
-exports.multi = function(fileNames) {
+exports.multi = function(input) {
 
   // promise to diarize
   return new Promise(function(resolve,reject){
 
+      var fileNames = input.files;
+
       console.log('running diarizations');
 
-      var now = "_"+(new Date()).getTime();
-
-      var command = " "+now+" ";
+      var command = " "+input.name+" ";
 
       // go through each file given
       fileNames.forEach(function(fileName){
@@ -60,8 +59,6 @@ exports.multi = function(fileNames) {
 
       });
 
-      console.log('python '+__dirname+ '/DiarizationPipelineMulti.py '+command);
-
       // transfer control to the command line, calling the python script for diarization
       shell.exec('python '+__dirname+ '/DiarizationPipelineMulti.py '+command, function(err,results){
         if (err) reject(err);
@@ -70,7 +67,7 @@ exports.multi = function(fileNames) {
         else {
           console.log(' finished diarization');
           resolve({
-            tag: now,
+            tag: input.name,
             ext: "mp3",
             files: fileNames
           });

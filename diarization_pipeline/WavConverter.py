@@ -5,10 +5,10 @@ import sys
 import pydub
 from pydub import AudioSegment
 
-def translateAudioToWav(tag,filetype):
+def translateAudioToWav(name,tag,filetype):
 
     infile = '/tmp/'+tag+'.'+filetype
-    outfile = '/tmp/'+tag+'.wav'
+    outfile = '/tmp/'+name+'.wav'
 
     supportedInputTypes = {'mp3','ogg','mp4','flv','wma','aac','wav'}
     directNames = {'ogg','flv','mp3'}
