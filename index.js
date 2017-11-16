@@ -14,9 +14,10 @@ var dataPath = __dirname+"/data/"
 var upload = require('./data_management/Upload.js');
 var diarize = require('./diarization_pipeline/Diarize.js');
 var db = require('./data_management/DBManager.js');
-var wavFileInfo = require('wav-file-info');
 var cleanup = require('./data_management/CleanUp.js');
 var fs = require('fs');
+
+app.set('port', (process.env.PORT || 5000))
 
 // render views in html
 app.engine('html', require('ejs').renderFile);
@@ -57,8 +58,8 @@ app.get('*', function(req, res) {
 });
 
 // run server on port 8080
-app.listen(8080,function(){
-  console.log("LIVE ON 8080");
+app.listen( app.get('port'),function(){
+  console.log("App is running on port");
 });
 
 // upload the specified file
