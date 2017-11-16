@@ -22,8 +22,11 @@ exports.single = function(req,res){
 
       // resolve the result
       .then(function(result){
-        resolve(result);
-      });
+        resolve({
+          name: '_'+(new Date()).getTime(),
+          files:result
+        });
+      })
 
    });
   })
@@ -59,7 +62,10 @@ exports.multi = function(req,res){
 
       // return the results
       .then(function(results){
-        resolve(results);
+        resolve({
+          name: '_'+(new Date()).getTime(),
+          files:results
+        });
       })
     });
   });
@@ -73,19 +79,10 @@ function single_upload(file){
 
       // get the file's path
       var oldpath = file.path;
-      
-      // determine the directory
-      var directory = '/tmp/';
 
       // generate the new path
       var newFileName = file.name;
-      var newpath = directory + newFileName;
-
-      console.log("looking for "+oldpath);
-
-      // if (path.existsSync(oldpath)) {
-      //   console.log("Found the old file at "+oldpath);
-      // }
+      var newpath = '/tmp/' + newFileName;
 
       // move the file
       fs.rename(oldpath, newpath, function (err) {
@@ -93,7 +90,7 @@ function single_upload(file){
 
         // resolve the promise
         else {
-          console.log('   finished upload '+newpath);
+          console.log('   finished upload');
 
           // return the new file's name
           resolve(newFileName);

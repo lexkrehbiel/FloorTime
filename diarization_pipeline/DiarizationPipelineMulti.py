@@ -20,7 +20,7 @@ for i in range(2,len(sys.argv),2):
     filetype = sys.argv[i+1];
 
     # put the file in the correct format
-    WavConverter.translateAudioToWav(tag,filetype)
+    WavConverter.translateAudioToWav(tag,tag,filetype)
 
     fileName = '/tmp/'+tag+'.wav'
 

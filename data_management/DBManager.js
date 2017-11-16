@@ -19,7 +19,6 @@ exports.get = function(tag){
 
           // log success
           console.log("found a result for "+tag)
-          console.log(result);
           db.close();
 
           // return the data
