@@ -6,11 +6,9 @@ import SegParser
 import Diarizer
 import sys
 import wave
-import os
 
 name = sys.argv[1]
 data= []
-dir = os.path.dirname(__file__)
 
 num_files = (len(sys.argv)-2)/2
 
@@ -19,13 +17,12 @@ for i in range(2,len(sys.argv),2):
 
     # strip the arguments
     tag = sys.argv[i];
-    filetype = sys.argv[i+1].lower();
+    filetype = sys.argv[i+1];
 
     # put the file in the correct format
     WavConverter.translateAudioToWav(tag,filetype)
 
-    dir = os.path.dirname(__file__)
-    fileName = os.path.join(dir, '../data/wav/'+tag+'.wav')
+    fileName = '/tmp/'+tag+'.wav'
 
     w = wave.open(fileName, 'rb')
 
@@ -33,7 +30,7 @@ for i in range(2,len(sys.argv),2):
     w.close()
 
 # initialize the output file
-outfile = os.path.join(dir, '../data/wav/'+name+'.wav')
+outfile = '/tmp/'+name+'.wav'
 output = wave.open(outfile, 'wb')
 output.setparams(data[0][0])
 

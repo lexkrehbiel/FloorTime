@@ -10,7 +10,6 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var viewPath = __dirname+"/views/";
-var dataPath = __dirname+"/data/"
 var upload = require('./data_management/Upload.js');
 var diarize = require('./diarization_pipeline/Diarize.js');
 var db = require('./data_management/DBManager.js');

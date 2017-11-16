@@ -9,11 +9,11 @@ def runLium(tag):
 
     dir = os.path.dirname(__file__)
     liumPath = os.path.join(dir, '../vendors/lium.jar')+" "
-    outpath = os.path.join(dir, '../data/seg/'+tag+'.seg')
-    inpath = os.path.join(dir, '../data/wav/'+tag+'.wav')
+    outpath = '/tmp/'+tag+'.seg'
+    inpath = '/tmp/'+tag+'.wav'
 
     # generate the command line components
-    javaPath = "/usr/bin/java "
+    javaPath = "java "
     res = "-Xmx2024m "
     jar = "-jar "
     inputMask = "--fInputMask="+inpath+" "
@@ -22,7 +22,5 @@ def runLium(tag):
     command =javaPath + res + jar + liumPath + inputMask + outputMask + options
     # pass the generated command to the operating system
     os.system(command)
-
-    #print(1/(1-1))
-
+    
     return 0

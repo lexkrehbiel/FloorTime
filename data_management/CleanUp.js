@@ -8,50 +8,42 @@ exports.run = function(tag, type, files){
 
     // the file names to delete
     var toDelete = [
-      '/data/audio/'+tag+'.'+type,
-      '/data/json/'+tag+'.json',
-      '/data/seg/'+tag+'.seg',
-      '/data/wav/'+tag+'.wav'
+      tag+'.'+type,
+      tag+'.json',
+      tag+'.seg',
+      tag+'.wav'
     ];
 
     // if there are children, clean up the wavs and audio files, too
     if (files){
       var rawAudio = files.map(function(fileName){
-        return '/data/audio/'+fileName;
+        return fileName;
       });
       var wavs = files.map(function(fileName){
         // separate the file into it's name and extension
         var periodIndex = fileName.lastIndexOf('.');
         var tg = fileName.substring(0,periodIndex);
-        return '/data/wav/'+tg+'.wav';
+        return tg+'.wav';
       });
       console.log("deleting");
-      console.log(wavs);
-      console.log(rawAudio);
       toDelete = toDelete.concat(rawAudio).concat(wavs);
     }
-
-    console.log(files);
-
-    // strip the last directory off
-    var lastDirIndex = __dirname.lastIndexOf('/');
-    var parent = __dirname.substring(0,lastDirIndex);
 
     // for every file to delete
     toDelete.forEach(function(path){
 
       // check that it exists
-      fs.exists(parent+path, function(exists) {
+      fs.exists('/tmp/'+path, function(exists) {
 
 
         if(exists) {
-          console.log('Deleting '+parent+path);
+          console.log('Deleting '+path);
 
           // delete the file
-          fs.unlink(parent+path);
+          fs.unlink('/tmp/'+path);
         } else {
 
-          console.log(parent+path+' not found, so not deleting.');
+          console.log(path+' not found, so not deleting.');
         }
 
       });
