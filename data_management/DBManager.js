@@ -2,7 +2,9 @@
 
 var mongoClient = require('mongodb').MongoClient;
 var mongo_url = "mongodb://ft_admin:ftadmin@ds159235.mlab.com:59235/floortime";
-var audio_url = "../static/audio/";
+
+// look for the files in the s3 bucket
+var audio_url = 'https://'+process.env.S3_BUCKET+'.s3.'+process.env.S3_REGION+'.amazonaws.com/';
 
 exports.get = function(tag){
 
@@ -17,8 +19,7 @@ exports.get = function(tag){
         db.collection("sessions").findOne({name : tag}, function(err, result) {
           if (err) throw reject(err);
 
-          // log success
-          console.log("found a result for "+tag)
+          // close database
           db.close();
 
           // return the data
