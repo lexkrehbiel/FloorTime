@@ -14,6 +14,7 @@ var upload = require('./data_management/Upload.js');
 var diarize = require('./diarization_pipeline/Diarize.js');
 var db = require('./data_management/DBManager.js');
 var cleanup = require('./data_management/CleanUp.js');
+var s3Upload = require('./data_management/S3Uploader.js').S3Upload;
 var fs = require('fs');
 
 app.set('port', (process.env.PORT || 5000))
@@ -79,7 +80,10 @@ function uploadSequence(req,res,next){
   // given the json fileoutput
   .then(function(file){
 
-    cleanup.run(file.tag, file.ext);
+    console.log(file);
+
+    s3Upload(file)
+    .then(cleanup.run)
 
   })
 
@@ -107,7 +111,7 @@ function uploadMultipleSequence(req,res,next){
   // given the json fileoutput
   .then(function(file){
 
-    cleanup.run(file.tag, file.ext, file.files);
+    cleanup.run(file);
 
   })
 

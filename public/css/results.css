@@ -1,12 +1,12 @@
 .wide-blob{
-  width:100vh;
+  width:100vw;
   margin-top: 10px;
   margin-bottom: 10px;
   overflow-y: hidden;
 }
 
 .half-blob{
-  width:45%;
+  width:45vw;
   padding-bottom: 10px;
   display: inline-block;
 }

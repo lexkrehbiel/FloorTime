@@ -4,7 +4,10 @@
 var fs = require('fs');
 
 // delete the files corresponding to this tag
-exports.run = function(tag, type, files){
+exports.run = function(input){
+
+  var tag = input.tag;
+  var type = input.ext;
 
     // the file names to delete
     var toDelete = [
@@ -15,7 +18,8 @@ exports.run = function(tag, type, files){
     ];
 
     // if there are children, clean up the wavs and audio files, too
-    if (files){
+    if ('files' in input){
+      var files = input.files;
       var rawAudio = files.map(function(fileName){
         return fileName;
       });
