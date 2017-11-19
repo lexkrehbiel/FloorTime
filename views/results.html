@@ -27,7 +27,7 @@
 
     <h1>Results</h1>
 
-    <audio controls class="wide-blob" style="width:90vw">
+    <audio controls class="wide-blob" style="width:90vw" id="audLoad">
       <source src="" id="audioDiv" type="audio/wav">
       Your browser does not support the audio element.
     </audio>
@@ -37,8 +37,9 @@
       // in the sent data
       setTimeout(function(){
         $("#audioDiv").attr("src",input.wav);
+        document.getElementById("audLoad").load();
         console.log("set audio to "+input.wav);
-      }, 5000);
+      }, 3000);
       //$("#audioDiv").attr("src",input.wav);
     </script>
 

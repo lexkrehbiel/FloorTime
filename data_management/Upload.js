@@ -22,6 +22,7 @@ exports.single = function(req,res){
 
       // resolve the result
       .then(function(result){
+        console.log("uploaded!");
         resolve({
           name: '_'+(new Date()).getTime(),
           files:result
