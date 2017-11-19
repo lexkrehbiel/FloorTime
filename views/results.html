@@ -1,5 +1,9 @@
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FloorTime</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="../static/vendors/bootstrap.min.css"></link>
     <!-- JQuery JS -->
@@ -27,7 +31,7 @@
 
     <h1>Results</h1>
 
-    <audio controls class="wide-blob" style="width:90vw">
+    <audio controls class="wide-blob" style="width:90vw" id="audLoad">
       <source src="" id="audioDiv" type="audio/wav">
       Your browser does not support the audio element.
     </audio>
@@ -35,7 +39,12 @@
     <script>
       // set the src of the audio div to point the url given
       // in the sent data
-      $("#audioDiv").attr("src",input.wav);
+      setTimeout(function(){
+        $("#audioDiv").attr("src",input.wav);
+        document.getElementById("audLoad").load();
+        console.log("set audio to "+input.wav);
+      }, 3000);
+      //$("#audioDiv").attr("src",input.wav);
     </script>
 
     <a class="expand-one"> Show Split Speakers </a>

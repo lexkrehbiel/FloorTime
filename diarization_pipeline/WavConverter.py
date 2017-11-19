@@ -10,7 +10,7 @@ def translateAudioToWav(name,tag,filetype):
     infile = '/tmp/'+tag+'.'+filetype
     outfile = '/tmp/'+name+'.wav'
 
-    supportedInputTypes = {'mp3','ogg','mp4','flv','wma','aac','wav'}
+    supportedInputTypes = {'mp3','ogg','mp4','flv','wma','aac','wav','mov'}
     directNames = {'ogg','flv','mp3'}
 
     # if this extension is valid for the pydub to convert it,
@@ -31,4 +31,4 @@ def translateAudioToWav(name,tag,filetype):
         wavData.export(outfile,format="wav")
     else:
         # note the error
-        print(filetype+'Is not a supported audio file type')
+        print(filetype+' is not a supported audio file type')
