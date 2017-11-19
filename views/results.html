@@ -35,7 +35,11 @@
     <script>
       // set the src of the audio div to point the url given
       // in the sent data
-      $("#audioDiv").attr("src",input.wav);
+      setTimeout(function(){
+        $("#audioDiv").attr("src",input.wav);
+        console.log("set audio to "+input.wav);
+      }, 5000);
+      //$("#audioDiv").attr("src",input.wav);
     </script>
 
     <a class="expand-one"> Show Split Speakers </a>
