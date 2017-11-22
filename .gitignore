@@ -4,6 +4,7 @@
 *.pyc
 node_modules
 data/*
+!data/models/*
 diarization_pipeline/Combiner.js
 .DS_Store
 .env
