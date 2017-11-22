@@ -3,6 +3,7 @@
 # input: tag (NOT including .wav) of the wav file
 
 import os
+useCustomLIUM = False
 
 # run lium diarization on the files specified
 def runLium(tag):
@@ -14,12 +15,20 @@ def runLium(tag):
 
     # generate the command line components
     javaPath = "java "
-    res = "-Xmx2024m "
+    mem = "2028m"
+    res = "-Xmx" + mem + " "
     jar = "-jar "
+    bicSegThres = "1.7"
+    bicCluThres = "2.5"
+    vitDecThres = "250"
+    clrCluThres = "1.7"
     inputMask = "--fInputMask="+inpath+" "
     outputMask = "--sOutputMask="+outpath+" "
     options = "--doCEClustering "+tag;
-    command =javaPath + res + jar + liumPath + inputMask + outputMask + options
+    if not useCustomLIUM:
+        command =javaPath + res + jar + liumPath + inputMask + outputMask + options
+    else:
+        command = os.path.join(dir, "./diarization.sh") + ' ' + liumPath + ' ' + mem + ' ' + inpath + ' ' + outpath + ' ' + "/tmp" + ' ' + bicSegThres + ' ' + bicCluThres + ' ' + vitDecThres + ' ' + clrCluThres + ' ' + os.path.join(dir, "../data/models")
     # pass the generated command to the operating system
     os.system(command)
     
