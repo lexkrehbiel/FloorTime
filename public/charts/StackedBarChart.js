@@ -9,6 +9,8 @@ google.charts.load("current", {packages:["timeline"]});
 // tell google charts to draw the chart when it's done loading
 google.charts.setOnLoadCallback(drawChart);
 
+console.log('here');
+
 function drawChart() {
 
   // cutoff for when to combine speaker chunks
@@ -79,7 +81,21 @@ function drawChart() {
     dataTable.addRow(arr);
   })
 
-  chart.draw(dataTable);
+  console.log(smoothedSegments);
+
+  var end = milliToDate(last_end);
+
+  console.log(end);
+  console.log(end.getMinutes(),end.getSeconds());
+
+
+  chart.draw(dataTable,{
+    hAxis: {
+      format: 'mm:ss',
+      minValue: new Date(0,0,0,0,0,0),
+      maxValue: new Date(0,0,0,0,end.getMinutes(), end.getSeconds())
+    }
+  });
 
 
   // REPEAT FOR EXPANDED
@@ -102,7 +118,13 @@ function drawChart() {
     dataTable.addRow(val);
   })
 
-  chart.draw(dataTable);
+  chart.draw(dataTable,{
+    hAxis: {
+      format: 'mm:ss',
+      minValue: new Date(0,0,0,0,0,0),
+      maxValue: new Date(0,0,0,0,end.getMinutes(), end.getSeconds())
+    }
+  });
 }
 
 // convert milliseconds value to a date
@@ -113,7 +135,5 @@ function milliToDate(value){
   var sec = value % 60;
   value = (value-sec)/60;
   var min = value % 60;
-  value = (value-min)/60;
-  var hour = value;
-  return new Date(0,0,0,hour,min,sec);
+  return new Date(0,0,0,0,min,sec);
 }
