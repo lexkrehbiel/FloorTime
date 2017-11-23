@@ -3,7 +3,7 @@
 # input: tag (NOT including .wav) of the wav file
 
 import os
-useCustomLIUM = False
+useCustomLIUM = True
 
 # run lium diarization on the files specified
 def runLium(tag):
@@ -31,5 +31,5 @@ def runLium(tag):
         command = os.path.join(dir, "./diarization.sh") + ' ' + liumPath + ' ' + mem + ' ' + inpath + ' ' + outpath + ' ' + "/tmp" + ' ' + bicSegThres + ' ' + bicCluThres + ' ' + vitDecThres + ' ' + clrCluThres + ' ' + os.path.join(dir, "../data/models")
     # pass the generated command to the operating system
     os.system(command)
-    
+
     return 0
