@@ -3,7 +3,7 @@
 # input: tag (NOT including .wav) of the wav file
 
 import os
-useCustomLIUM = True
+useCustomLIUM = False
 
 # run lium diarization on the files specified
 def runLium(tag):
